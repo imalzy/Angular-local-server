@@ -8,9 +8,14 @@ const routes: Routes = [
     redirectTo: 'dashboard',
     pathMatch: 'full'
   },
+  // {
+  //   path: 'dashboard',
+  //   loadComponent: () => import('./modules/home/home.component').then(c=>c.HomeComponent),
+  //   canActivate: [authenticationGuard()]
+  // },
   {
     path: 'dashboard',
-    loadComponent: () => import('./modules/home/home.component').then(c=>c.HomeComponent),
+    loadChildren: () => import('./modules/home/routes').then(c=>c.ADMIN_ROUTES),
     canActivate: [authenticationGuard()]
   },
   {

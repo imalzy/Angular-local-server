@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
       .subscribe((res) => {
         if (res && res.token) {
           this.authService.storeToken(res.token);
-          this.router.navigate(['/home'])
+          this.router.navigate(['/dashboard'])
         }
       });
   }

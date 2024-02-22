@@ -38,6 +38,19 @@ server.post('/register', (req: any, res: any) => {
   }
 });
 
+
+server.get('/employees', (req: any, res: any) => {
+  const items = readEmployees();
+  
+  // if (items === undefined || items === null) {
+    res.send({
+      data: items,
+    });
+  // } else {
+  //   res.status(500).send('Product Empty');
+  // }
+});
+
 server.use('/users', (req: any, res: any, next: any) => {
   if (isAuthorized(req) || req.query.bypassAuth === 'true') {
     next();
@@ -71,4 +84,10 @@ function readUsers() {
   const dbRaw = fs.readFileSync('./server/db.json');
   const users = JSON.parse(dbRaw).users;
   return users;
+}
+
+function readEmployees() {
+  const dbRaw = fs.readFileSync('./server/db.json');
+  const datas = JSON.parse(dbRaw).employees;
+  return datas;
 }
