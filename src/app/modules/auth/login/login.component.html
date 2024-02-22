@@ -1,0 +1,17 @@
+<main>
+  <section class="login-container">
+    <mat-card>
+      <form [formGroup]="form" class="auth-form">
+        <h1 style="text-align: center;">Login</h1>
+        <mat-form-field>
+          <input matInput #username maxlength="10" placeholder="Username" formControlName="username"/>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput #password maxlength="10" placeholder="Password" formControlName="password"/>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">Login</button>
+      </form>
+    </mat-card>
+  </section>
+</main>
+ 

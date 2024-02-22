@@ -1,0 +1,28 @@
+main {
+  display: flex;
+  justify-content: center;
+}
+
+main section {
+  width: 100%;
+}
+
+main section form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+mat-card {
+  width: 480px;
+  padding: 48px;
+}
+
+.login-container {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: 180px;
+}
