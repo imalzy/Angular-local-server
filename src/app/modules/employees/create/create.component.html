@@ -1,1 +1,71 @@
-<p>create works!</p>
+<div class="mat-elevation-z8" style="padding: 48px">
+  <mat-card style="width: 100%">
+    <mat-card-header>
+      <mat-card-title>Create Pegawai</mat-card-title>
+    </mat-card-header>
+  </mat-card>
+
+  <mat-card style="width: 100%">
+    <form [formGroup]="formGroup" style="display: flex; flex-direction: column">
+      <mat-form-field>
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Firstname</mat-label>
+        <input matInput formControlName="firstName" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Lastname</mat-label>
+        <input matInput formControlName="lastName" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Salary</mat-label>
+        <input type="text" matInput formControlName="basicSalary" prefix="Rp" mask="separator.2" thousandSeparator="."/>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Tanggal Lahir</mat-label>
+        <input matInput [matDatepicker]="dp" formControlName="birthDate" />
+        <mat-hint>MMMM DD, YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker #dp></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="true">Aktif</mat-option>
+          <mat-option value="false">Non Aktif</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Group</mat-label>
+        <mat-select formControlName="group">
+          <mat-option value="Music">Music</mat-option>
+          <mat-option value="Toys">Toys</mat-option>
+          <mat-option value="Garden">Garden</mat-option>
+          <mat-option value="Outdoors">Outdoors</mat-option>
+          <mat-option value="Sports">Sports</mat-option>
+          <mat-option value="Electronics">Electronics</mat-option>
+          <mat-option value="Kids">Kids</mat-option>
+          <mat-option value="Tools">Tools</mat-option>
+          <mat-option value="Games">Games</mat-option>
+          <mat-option value="Kids">Kids</mat-option>
+          <mat-option value="Movies">Movies</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Deskripsi</mat-label>
+        <input matInput />
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="onSave()">Save</button>
+      <button mat-raised-button color="accent">Cancel</button>
+    </form>
+  </mat-card>
+</div>

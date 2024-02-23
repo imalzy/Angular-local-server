@@ -38,17 +38,27 @@ server.post('/register', (req: any, res: any) => {
   }
 });
 
-
 server.get('/employees', (req: any, res: any) => {
   const items = readEmployees();
-  
-  // if (items === undefined || items === null) {
-    res.send({
-      data: items,
-    });
-  // } else {
-  //   res.status(500).send('Product Empty');
-  // }
+  res.send({
+    data: items,
+  });
+});
+
+server.get('/employees/:id', (req: any, res: any) => {
+  const items = readEmployees();
+  const resp = items.filter((u: any) => u.id.toString() == req.params.id.toString())[0];
+  res.send({
+    data: resp,
+  });
+});
+
+server.post('/employees', (req: any, res: any) => {
+  const items = [...readEmployees()];
+
+  res.send({
+    data: [...items, req.body],
+  });
 });
 
 server.use('/users', (req: any, res: any, next: any) => {
@@ -70,13 +80,13 @@ function formatUser(user: any) {
   return user;
 }
 
-function checkIfAdmin(user:any, bypassToken = false) {
+function checkIfAdmin(user: any, bypassToken = false) {
   return user.username === 'admin' || bypassToken === true
     ? 'admin-token'
     : 'user-token';
 }
 
-function isAuthorized(req:any) {
+function isAuthorized(req: any) {
   return req.headers.authorization === 'admin-token' ? true : false;
 }
 

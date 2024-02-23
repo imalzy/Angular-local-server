@@ -1,0 +1,35 @@
+<div class="mat-elevation-z8" style="padding: 48px">
+  <mat-card style="width: 100%; margin-bottom: 24px">
+    <mat-card-header>
+      <mat-card-title>Detail Pegawai</mat-card-title>
+    </mat-card-header>
+    <mat-card-actions slot="right">
+        <button mat-raised-button color="primary" (click)="onBack()">Back</button>
+      </mat-card-actions>
+  </mat-card>
+
+  <div>
+    <h2>Username</h2>
+    <p>{{ employee.username }}</p>
+  </div>
+  <div>
+    <h2>FullName</h2>
+    <p>{{ employee.firstName }} {{ employee.lastName }}</p>
+  </div>
+  <div>
+    <h2>Tanggal lahir</h2>
+    <p>{{ employee.birthDate | date : "dd/MM/yyyy" }}</p>
+  </div>
+  <div>
+    <h2>Gaji</h2>
+    <p>{{ employee.basicSalary | currency : "Rp" : "symbol" : "3.0" }}</p>
+  </div>
+  <div>
+    <h2>Status</h2>
+    <p>{{ employee.status ? "Aktif" : "Non Aktif" }}</p>
+  </div>
+  <div>
+    <h2>Group</h2>
+    <p>{{ employee.group }}</p>
+  </div>
+</div>
