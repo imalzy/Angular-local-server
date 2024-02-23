@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,6 +16,7 @@ import { EmployeeService } from 'src/app/shared/services/employee.service';
 import { generateString } from 'src/app/shared/utils/helper';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { Router, RouterModule } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-employee-create',
@@ -39,6 +40,9 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class CreateComponent {
   formGroup: FormGroup = new FormGroup({});
+  private readonly destroyRef = inject(DestroyRef);
+
+  
   constructor(private employeeService: EmployeeService, private router: Router) {
     this.formGroup = new FormGroup({
       firstName: new FormControl(''),
@@ -58,7 +62,7 @@ export class CreateComponent {
     const body = { ...this.formGroup.value, id: uuid };
     console.log(body);
 
-    this.employeeService.add(body).subscribe((res) => {
+    this.employeeService.add(body).pipe(takeUntilDestroyed(this.destroyRef)).subscribe((res) => {
       console.log(res);
       this.router.navigate(['/dashboard/employees'], {
         replaceUrl: true

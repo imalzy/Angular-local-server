@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, DestroyRef, OnInit, ViewChild, inject } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
@@ -10,9 +10,8 @@ import { EmployeeService } from 'src/app/shared/services/employee.service';
 import { IEmployee } from 'src/app/shared/model/employee.model';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CurrencyPipe, DatePipe } from '@angular/common';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { CreateComponent } from '../create/create.component';
 import { Router, RouterModule } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-employee-list',
@@ -50,12 +49,13 @@ export class ListComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
 
+  private readonly destroyRef = inject(DestroyRef);
   constructor(
     private employeeService: EmployeeService,
     private router: Router
   ) {}
   ngOnInit(): void {
-    this.employeeService.getEmp().subscribe((res) => {
+    this.employeeService.getEmp().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((res) => {
       const emp = res?.data || [];
       console.log(emp);
       this.dataSource = new MatTableDataSource<IEmployee>(emp);
